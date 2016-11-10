@@ -16,7 +16,8 @@ namespace TestServer.Models
         {
             get
             {
-                return Tickets?.Sum(r => r.Count) ?? 0;
+                if (Tickets == null) return 0;
+                return Tickets.Sum(r => r.Count);
             }
         }
     }
