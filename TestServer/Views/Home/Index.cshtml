@@ -1,0 +1,73 @@
+﻿@model IEnumerable<TestServer.Models.Movie>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+@{ var movies = Model; }
+<html>
+<head>
+    <title>title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/Index")
+</head>
+<body>
+<div>
+    <!-- Блок для показа сообщений об ошибке -->
+    <div id="actionResultDiv" style="position: fixed; z-index: 99999; width: 300px; height: 25px; padding: 40px 10px; background: #eee; text-align: center; display: none;">
+        <label style="color: #f00;" id="actionResult"></label>
+    </div>
+
+    
+    <!-- Окно добавления фильма -->
+    <div id="addWindow" title="Добавление фильма">
+        <div style="width: 100%" class="row">
+            <div class="col-lg-3"><label>Дата</label>
+            </div>
+            <div class="col-lg-9"><input class="col-lg-12" type="text" id="date"/>
+            </div>
+        </div>
+        <div style="width: 100%" class="row">
+            <div class="col-lg-3"><label>Название</label>
+            </div>
+            <div class="col-lg-9"><input class="col-lg-12" type="text" id="name"/>
+            </div>
+
+        </div>
+        <div style="width: 100%" class="row">
+            <button type="button" onclick="IndexScript.saveClick()">Сохранить</button>
+            <button type="button" onclick="IndexScript.cancelClick()">Отмена</button>
+        </div>
+    </div>
+
+
+    <div style="text-align: right; width: 100%;  max-width: 800px;margin: auto;">
+        <button type="button" onclick="IndexScript.addClick()">Добавить</button>
+    </div>
+    <!-- Таблица данных] -->
+    <table style="width: 100%; max-width: 800px; margin: auto;">
+        <tr>
+            <th style="width: 10%; text-align: center; border: 1px solid #696969;">Дата</th>
+            <th style="width: 75%; text-align: center; border: 1px solid #696969;">Название</th>
+            <th style="width: 10%; text-align: center; border: 1px solid #696969;">Кол-во билетов</th>
+            <th style="width: 5%; border: 1px solid #696969;"></th>
+        </tr>
+        @{
+            foreach (var movie in movies)
+            {
+                <tr style="border: 1px solid #696969;">
+                    <td>@movie.Date.ToString("dd.MM.yyyy")</td>
+                    <td>@movie.Name</td>
+                    <td style="text-align: center;">@movie.TicketCount</td>
+                    <td style="text-align: center;"><i class="ui-button-icon ui-icon ui-icon-close" onclick="IndexScript.removeClick(@movie.Id)" title="Удалить фильм"></i></td>
+                </tr>
+
+            }
+        }
+    </table>
+
+</div>
+</body>
+</html>
