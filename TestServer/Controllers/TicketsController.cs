@@ -11,10 +11,7 @@ namespace TestServer.Controllers
     {
         // контекст БД
         readonly MovieContext _dbContext = new MovieContext();
-
-        // вместимость зала
-        private const int HallCapasity = 100;
-
+        
         /// <summary>
         /// Оплата билетов
         /// </summary>
@@ -30,7 +27,7 @@ namespace TestServer.Controllers
 
             var movie = _dbContext.Set<Movie>().Find(ticket.MovieId);
             if (movie == null) return "Фильм не найден";
-            if (movie.TicketCount + ticket.Count > HallCapasity) return "Невозможно продать указанное количество";
+            if (ticket.Count > movie.EmptyPlaces) return "Невозможно продать указанное количество";
             _dbContext.Set<Ticket>().Add(ticket);
             _dbContext.SaveChanges();
             return "Билеты оплачены";
@@ -45,7 +42,7 @@ namespace TestServer.Controllers
         {
             var movie = _dbContext.Set<Movie>().SingleOrDefault(r=>r.Id == id);
             if (movie == null) return 0;
-            return HallCapasity - movie.TicketCount;
+            return movie.EmptyPlaces;
         }
 
         /// <summary>

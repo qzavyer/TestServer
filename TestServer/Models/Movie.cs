@@ -9,6 +9,7 @@ namespace TestServer.Models
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public string Name { get; set; }
+        public int PlaceCount { get; set; }
 
         public virtual ICollection<Ticket> Tickets { get; set; }
 
@@ -19,6 +20,11 @@ namespace TestServer.Models
                 if (Tickets == null) return 0;
                 return Tickets.Sum(r => r.Count);
             }
+        }
+
+        public int EmptyPlaces
+        {
+            get { return PlaceCount - TicketCount; }
         }
     }
 }

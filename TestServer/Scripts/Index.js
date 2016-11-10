@@ -13,9 +13,34 @@
                 close: function() {
                     $("#name").val("");
                     $("#date").datepicker("setDate", new Date());
+                    $("#time").timespinner("value", new Date());
                 }
             });
-
+            $("#count").spinner();
+            $("#count").spinner("value", 100);
+            Globalize.culture("de-DE");
+            $.widget("ui.timespinner", $.ui.spinner, {
+                options: {
+                    // секунды
+                    step: 60 * 1000,
+                    // часы
+                    page: 60
+                },
+                _parse: function(value) {
+                    if (typeof value === "string") {
+                        if (Number(value) == value) {
+                            return Number(value);
+                        }
+                        return +Globalize.parseDate(value);
+                    }
+                    return value;
+                },
+                _format: function(value) {
+                    return Globalize.format(new Date(value), "t");
+                }
+            });
+            $("#time").timespinner();
+            $("#time").timespinner("value", new Date());
         });
         // показ соощения об ошибке
         function showResult(text, color) {
@@ -78,8 +103,9 @@
                     type: "POST",
                     dataType:"json",
                     data: {
-                        date: $("#date").val(),
-                        name: $("#name").val()
+                        Date: $("#date").val()+" "+$("#time").val()+":00",
+                        Name: $("#name").val(),
+                        PlaceCount: $("#count").val()
                     },
                     success:function(jdata) {
                         if (jdata.result === 0) {

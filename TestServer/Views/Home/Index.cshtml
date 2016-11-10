@@ -24,15 +24,29 @@
     <!-- Окно добавления фильма -->
     <div id="addWindow" title="Добавление фильма">
         <div style="width: 100%" class="row">
-            <div class="col-lg-3"><label>Дата</label>
+            <div class="col-lg-3">
+                <label>Дата</label>
             </div>
-            <div class="col-lg-9"><input class="col-lg-12" type="text" id="date"/>
+            <div class="col-lg-5">
+                <input class="col-lg-12" type="text" id="date"/>
+            </div>
+            <div class="col-lg-4">
+                <input class="col-lg-12" type="text" id="time" />
             </div>
         </div>
         <div style="width: 100%" class="row">
             <div class="col-lg-3"><label>Название</label>
             </div>
             <div class="col-lg-9"><input class="col-lg-12" type="text" id="name"/>
+            </div>
+
+        </div>
+        <div style="width: 100%" class="row">
+            <div class="col-lg-6">
+                <label>Количество мест</label>
+            </div>
+            <div class="col-lg-6">
+                <input class="col-lg-12" type="text" id="count" />
             </div>
 
         </div>
@@ -49,8 +63,8 @@
     <!-- Таблица данных] -->
     <table style="width: 100%; max-width: 800px; margin: auto;">
         <tr>
-            <th style="width: 10%; text-align: center; border: 1px solid #696969;">Дата</th>
-            <th style="width: 75%; text-align: center; border: 1px solid #696969;">Название</th>
+            <th style="width: 15%; text-align: center; border: 1px solid #696969;">Дата</th>
+            <th style="width: 70%; text-align: center; border: 1px solid #696969;">Название</th>
             <th style="width: 10%; text-align: center; border: 1px solid #696969;">Кол-во билетов</th>
             <th style="width: 5%; border: 1px solid #696969;"></th>
         </tr>
@@ -58,7 +72,7 @@
             foreach (var movie in movies)
             {
                 <tr style="border: 1px solid #696969;">
-                    <td>@movie.Date.ToString("dd.MM.yyyy")</td>
+                    <td>@movie.Date.ToString("dd.MM.yyyy HH:mm")</td>
                     <td>@movie.Name</td>
                     <td style="text-align: center;">@movie.TicketCount</td>
                     <td style="text-align: center;"><i class="ui-button-icon ui-icon ui-icon-close" onclick="IndexScript.removeClick(@movie.Id)" title="Удалить фильм"></i></td>

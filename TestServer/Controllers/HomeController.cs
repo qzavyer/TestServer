@@ -31,14 +31,12 @@ namespace TestServer.Controllers
         /// <summary>
         /// Добавление фильма
         /// </summary>
-        /// <param name="date">Дата фильма</param>
-        /// <param name="name">Название фильма</param>
+        /// <param name="movie">Данные фильма</param>
         [HttpPost]
-        public ActionResult AddMovie(DateTime date, string name)
+        public ActionResult AddMovie(Movie movie)
         {
             try
             {
-                var movie = new Movie {Date = date, Name = name};
                 _dbContext.Set<Movie>().Add(movie);
                 _dbContext.SaveChanges();
                 return Json(new {result = 0});
